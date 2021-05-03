@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/views/product_detail.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  // Endpoint for Android Emulator
   final String url = "http://10.0.2.2:8000/api/products";
 
   Future getProducts() async {
@@ -20,7 +22,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Nect Product Store"),
+        title: Center(child: Text("Nect Product Store")),
       ),
       body: FutureBuilder(
         future: getProducts(),
@@ -35,43 +37,70 @@ class HomePage extends StatelessWidget {
                       elevation: 5,
                       child: Row(
                         children: [
-                          Container(
-                            height: 120,
-                            width: 120,
-                            padding: EdgeInsets.all(3),
-                            child: Image.network(
-                              snapshoot.data['data'][index]['thumbnail']
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductDetail(
+                                            product: snapshoot.data['data']
+                                                [index],
+                                          )));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15)),
+                              height: 120,
+                              width: 120,
+                              padding: EdgeInsets.all(3),
+                              child: Image.network(
+                                  snapshoot.data['data'][index]['thumbnail']),
                             ),
                           ),
                           Expanded(
                             child: Container(
                               padding: EdgeInsets.all(8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Align(
                                     alignment: Alignment.topCenter,
-                                    child: Text(
-                                      snapshoot.data['data'][index]['nama_product'],
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetail(
+                                                        product: snapshoot
+                                                            .data['data'][index])));
+                                      },
+                                      child: Text(
+                                        snapshoot.data['data'][index]
+                                            ['nama_product'],
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
                                     child: Text(
-                                      snapshoot.data['data'][index]['description'],
-                                      style: TextStyle(
-                                        fontSize: 10
-                                      ),
+                                      snapshoot.data['data'][index]
+                                          ['description'],
+                                      style: TextStyle(fontSize: 10),
                                     ),
                                   ),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Icon(Icons.edit),
-                                      Text(snapshoot.data['data'][index]['price'].toString())
+                                      Text(snapshoot.data['data'][index]
+                                              ['price']
+                                          .toString())
                                     ],
                                   )
                                 ],
@@ -84,7 +113,7 @@ class HomePage extends StatelessWidget {
                   );
                 });
           } else {
-            return Text('Data tidak ditemukan');
+            return Center(child: Text('Data tidak ditemukan'));
           }
         },
       ),
