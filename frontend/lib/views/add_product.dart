@@ -3,32 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:frontend/views/homepage.dart';
 import 'package:http/http.dart' as http;
 
-class AddProduct extends StatefulWidget {
-  @override
-  _AddProductState createState() => _AddProductState();
-}
+class AddProduct extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameProductController = TextEditingController();
+  TextEditingController _descriptionProductController =
+      TextEditingController();
+  TextEditingController _priceProductController = TextEditingController();
+  TextEditingController _imageProductController = TextEditingController();
 
-class _AddProductState extends State<AddProduct> {
+  Future saveProduct() async {
+    final res = await http
+        .post(Uri.parse('http://10.0.2.2:8000/api/products'), body: {
+      "nama_product": _nameProductController.text,
+      "description": _descriptionProductController.text,
+      "thumbnail": _imageProductController.text,
+      "price": _priceProductController.text,
+    });
+
+    return json.decode(res.body);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    TextEditingController _nameProductController = TextEditingController();
-    TextEditingController _descriptionProductController =
-        TextEditingController();
-    TextEditingController _priceProductController = TextEditingController();
-    TextEditingController _imageProductController = TextEditingController();
-
-    Future saveProduct() async {
-      final res = await http
-          .post(Uri.parse('http://10.0.2.2:8000/api/products'), body: {
-        "nama_product": _nameProductController.text,
-        "description": _descriptionProductController.text,
-        "thumbnail": _imageProductController.text,
-        "price": _priceProductController.text,
-      });
-
-      return json.decode(res.body);
-    }
 
     return Scaffold(
       appBar: AppBar(
