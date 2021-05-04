@@ -92,6 +92,10 @@ class AddProduct extends StatelessWidget {
                                         MaterialPageRoute(
                                             builder: (context) => HomePage()));
                                   });
+                                  ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                    content: Text("Create data product successfully"),
+                                  ));
                                 }
                               },
                               child: Text("Add Product"))
