@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/views/add_product.dart';
 import 'package:frontend/views/product_detail.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,6 +22,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AddProduct()));
+        },
+      ),
       appBar: AppBar(
         title: Center(child: Text("Nect Product Store")),
       ),
