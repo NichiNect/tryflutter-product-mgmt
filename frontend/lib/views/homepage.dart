@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/views/add_product.dart';
+import 'package:frontend/views/edit_product.dart';
 import 'package:frontend/views/product_detail.dart';
 import 'package:http/http.dart' as http;
 
@@ -104,7 +105,14 @@ class HomePage extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Icon(Icons.edit),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(context, MaterialPageRoute(
+                                            builder: (context) => EditProduct(product: snapshoot.data['data'][index]))
+                                          );
+                                        },
+                                        child: Icon(Icons.edit)
+                                      ),
                                       Text(snapshoot.data['data'][index]
                                               ['price']
                                           .toString())
