@@ -14,10 +14,15 @@ class EditProduct extends StatelessWidget {
   TextEditingController _priceProductController = TextEditingController();
   TextEditingController _imageProductController = TextEditingController();
 
+  // Endpoint for Android Emulator
+  // final String url = "http://10.0.2.2:8000/api/products/";
+  // Endpoint for my Local IP
+  final String url = "http://172.16.16.11:8080/api/products/";
+
   Future editProduct() async {
     final res = await http.put(
         Uri.parse(
-            'http://10.0.2.2:8000/api/products/' + product['id'].toString()),
+            url + product['id'].toString()),
         body: {
           "nama_product": _nameProductController.text,
           "description": _descriptionProductController.text,

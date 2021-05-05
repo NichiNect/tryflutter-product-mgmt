@@ -12,8 +12,10 @@ class HomePage extends StatelessWidget {
   }) : super(key: key);
 
   // Endpoint for Android Emulator
-  final String url = "http://10.0.2.2:8000/api/products";
-
+  // final String url = "http://10.0.2.2:8000/api/products";
+  // Endpoint for my Local IP
+  final String url = "http://172.16.16.11:8080/api/products";
+  
   Future getProducts() async {
     var response = await http.get(Uri.parse(url));
     // print(json.decode(response.body));

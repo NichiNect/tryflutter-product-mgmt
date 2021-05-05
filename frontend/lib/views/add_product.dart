@@ -12,8 +12,13 @@ class AddProduct extends StatelessWidget {
   TextEditingController _imageProductController = TextEditingController();
 
   Future saveProduct() async {
+    // Endpoint for Android Emulator
+    // final String url = "http://10.0.2.2:8000/api/products";
+    // Endpoint for my Local IP
+    final String url = "http://172.16.16.11:8080/api/products";
+
     final res = await http
-        .post(Uri.parse('http://10.0.2.2:8000/api/products'), body: {
+        .post(Uri.parse(url), body: {
       "nama_product": _nameProductController.text,
       "description": _descriptionProductController.text,
       "thumbnail": _imageProductController.text,
